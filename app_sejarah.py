@@ -4,15 +4,17 @@ import openai
 import os
 
 # Initialize OpenAI API
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-api_key = os.getenv('OPENAI_API_KEY')
-openai.api_key = api_key
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",  # Use the new model
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Translate the following English text to French: 'Hello, how are you?'"},
+    ]
+)
+print(response['choices'][0]['message']['content'])
 
-#print("API Key:", api_key)  # This will print the API key to the console
-#if not api_key:
-#    st.error("No API key provided. Please set the OPENAI_API_KEY environment variable.")
-#else:
-#    openai.api_key = api_key
 
 # Syllabus for Tingkatan 4 and 5
 syllabus = {
